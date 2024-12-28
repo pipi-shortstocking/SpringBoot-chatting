@@ -43,7 +43,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
      * @param chatDTO ChatDTO
      */
     private void sendMessage(String username, ChatDTO chatDTO) {
-        log.info("send chatDTO : {}", chatDTO.toString());
+        log.info("send chatDTO : {}", chatDTO.getMessage());
         ChatRoom chatRoom = chatRoomMap.get(chatDTO.getChatRoomId());
         chatRoom.sendMessage(username, chatDTO);
     }
@@ -54,7 +54,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
      * @param session WebSocket 세션
      */
     private void enterChatRoom(ChatDTO chatDTO, WebSocketSession session) {
-        log.info("enter chatDTO : {}", chatDTO.toString());
+        log.info("enter chatDTO : {}", chatDTO.getChatRoomId());
         chatDTO.setMessage(chatDTO.getUsername() + "님이 입장하셨습니다.");
         ChatRoom chatRoom = chatRoomMap.getOrDefault(chatDTO.getChatRoomId(), new ChatRoom(objectMapper));
         chatRoom.enter(chatDTO, session);
@@ -66,7 +66,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
      * @param chatDTO ChatDTO
      */
     private void exitChatRoom(String username, ChatDTO chatDTO) {
-        log.info("exit chatDTO : {}", chatDTO.toString());
+        log.info("exit chatDTO : {}", chatDTO.getChatRoomId());
         chatDTO.setMessage(chatDTO.getUsername() + "님이 퇴장하셨습니다.");
         ChatRoom chatRoom = chatRoomMap.get(chatDTO.getChatRoomId());
         chatRoom.exit(username, chatDTO);
