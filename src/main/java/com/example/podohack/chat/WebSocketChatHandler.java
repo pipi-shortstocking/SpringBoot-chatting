@@ -27,10 +27,14 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws JsonProcessingException {
         String username = (String) session.getAttributes().get("username");
         WebSocketMessage webSocketMessage = objectMapper.readValue(message.getPayload(), WebSocketMessage.class);
+
+        // payload를 ChatDTO로 변환
+        ChatDTO chatDTO = objectMapper.convertValue(webSocketMessage.getPayload(), ChatDTO.class);
+
         switch (webSocketMessage.getType().getValue()) {
-            case "ENTER" -> enterChatRoom((ChatDTO) webSocketMessage.getPayload(),session);
-            case "TALK" -> sendMessage(username, (ChatDTO) webSocketMessage.getPayload());
-            case "EXIT" -> exitChatRoom(username, (ChatDTO) webSocketMessage.getPayload());
+            case "ENTER" -> enterChatRoom(chatDTO,session);
+            case "TALK" -> sendMessage(username, chatDTO);
+            case "EXIT" -> exitChatRoom(username, chatDTO);
         }
     }
 
