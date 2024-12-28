@@ -28,7 +28,9 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         String username = (String) session.getAttributes().get("username");
         WebSocketMessage webSocketMessage = objectMapper.readValue(message.getPayload(), WebSocketMessage.class);
         switch (webSocketMessage.getType().getValue()) {
-//            case "ENTER" -> enterChatRoom
+            case "ENTER" -> enterChatRoom((ChatDTO) webSocketMessage.getPayload(),session);
+            case "TALK" -> sendMessage(username, (ChatDTO) webSocketMessage.getPayload());
+            case "EXIT" -> exitChatRoom(username, (ChatDTO) webSocketMessage.getPayload());
         }
     }
 
