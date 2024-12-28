@@ -1,4 +1,4 @@
-package com.example.podohack;
+package com.example.podohack.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

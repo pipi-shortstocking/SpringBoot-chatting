@@ -1,4 +1,4 @@
-package com.example.podohack;
+package com.example.podohack.chat;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
