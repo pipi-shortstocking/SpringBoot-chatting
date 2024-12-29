@@ -32,6 +32,7 @@ public class ChatRoom {
     public void enter(ChatDTO chatDTO, WebSocketSession session) {
         String username = (String) session.getAttributes().get("username");
         ActiveUserMap.put(username, session);
+
         for(Map.Entry<String, WebSocketSession> entry : ActiveUserMap.entrySet()) {
             try {
                 if(!entry.getKey().equals(username))
@@ -48,6 +49,7 @@ public class ChatRoom {
      */
     public void exit(String username, ChatDTO chatDTO) {
         ActiveUserMap.remove(chatDTO.getUsername());
+
         for(Map.Entry<String, WebSocketSession> entry : ActiveUserMap.entrySet()) {
             try {
                 if(!entry.getKey().equals(username))
